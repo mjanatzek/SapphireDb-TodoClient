@@ -3,6 +3,9 @@ import { NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import {SAPPHIRE_DB_OPTIONS, SapphireDbModule} from 'ng-sapphiredb';
+import {SapphireDbOptions} from 'sapphiredb';
+import {NgMetro4Module} from 'ng-metro4';
 
 @NgModule({
   declarations: [
@@ -10,9 +13,20 @@ import { AppComponent } from './app.component';
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    NgMetro4Module,
+    SapphireDbModule
   ],
-  providers: [],
+  providers: [
+    {
+      provide: SAPPHIRE_DB_OPTIONS,
+      useValue: {
+        connectionType: 'websocket',
+        useSsl: true,
+        serverBaseUrl: 'sapphiredb-todo.azurewebsites.net'
+      } as SapphireDbOptions
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
