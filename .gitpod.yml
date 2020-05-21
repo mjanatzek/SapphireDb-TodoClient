@@ -1,0 +1,14 @@
+tasks:
+  - init: npm install -g @angular/cli && npm install
+    command: npm start
+  - command: gp await-port 4200 && gp browser $(gp url 4200)
+
+github:
+  prebuilds:
+    master: true
+    branches: false
+    pullRequests: false
+    pullRequestsFromForks: false
+    addComment: true
+    addBadge: false
+    addLabel: prebuilt-in-gitpod
