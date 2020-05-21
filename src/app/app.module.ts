@@ -23,7 +23,9 @@ import {NgMetro4Module} from 'ng-metro4';
       useValue: {
         connectionType: 'websocket',
         useSsl: true,
-        serverBaseUrl: 'sapphiredb-todo.azurewebsites.net'
+        serverBaseUrl: 'sapphiredb-todo.azurewebsites.net',
+        offlineSupport: true,
+        offlineOptimization: true
       } as SapphireDbOptions
     }
   ],
