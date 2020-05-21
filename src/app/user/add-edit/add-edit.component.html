@@ -1,0 +1,11 @@
+<h1>{{ form.get('id').value ? 'Edit' : 'Add' }} user</h1>
+
+<div class="row" [formGroup]="form">
+  <div class="cell-12">
+    <m4-input prepend="Username" formControlName="username"></m4-input>
+  </div>
+  <div class="cell-12">
+    <button m4-button btn-style="success"
+            [disabled]="form.invalid || form.pristine" (click)="save()">{{ form.get('id').value ? 'Update' : 'Create' }}</button>
+  </div>
+</div>

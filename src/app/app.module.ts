@@ -6,6 +6,7 @@ import { AppComponent } from './app.component';
 import {SAPPHIRE_DB_OPTIONS, SapphireDbModule} from 'ng-sapphiredb';
 import {SapphireDbOptions} from 'sapphiredb';
 import {NgMetro4Module} from 'ng-metro4';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -15,17 +16,19 @@ import {NgMetro4Module} from 'ng-metro4';
     BrowserModule,
     AppRoutingModule,
     NgMetro4Module,
-    SapphireDbModule
+    SapphireDbModule,
+    FormsModule,
+    ReactiveFormsModule
   ],
   providers: [
     {
       provide: SAPPHIRE_DB_OPTIONS,
       useValue: {
         connectionType: 'websocket',
-        useSsl: true,
-        serverBaseUrl: 'sapphiredb-todo.azurewebsites.net',
-        offlineSupport: true,
-        offlineOptimization: true
+        // useSsl: true,
+        // serverBaseUrl: 'sapphiredb-todo.azurewebsites.net'
+        serverBaseUrl: 'localhost:5000',
+        useSsl: false
       } as SapphireDbOptions
     }
   ],

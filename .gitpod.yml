@@ -2,12 +2,11 @@ tasks:
   - init: npm install
     command: >
       npm install -g @angular/cli &&
-      ng analytics off
-  - command: gp await-port 4200 && gp preview $(gp url 4200)
+      npm start
 
 github:
   prebuilds:
-    master: true
+    master: false
     branches: false
     pullRequests: false
     pullRequestsFromForks: false
