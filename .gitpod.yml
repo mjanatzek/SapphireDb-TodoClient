@@ -1,5 +1,5 @@
 tasks:
-  - init: gp env NG_CLI_ANALYTICS=ci && npm install -g @angular/cli && npm install
+  - init: gp env NG_CLI_ANALYTICS=false && eval $(gp env -e) && npm install -g @angular/cli && npm install
     command: npm start
   - command: gp await-port 4200 && gp preview $(gp url 4200)
 
