@@ -6,7 +6,7 @@ tasks:
 
 github:
   prebuilds:
-    master: false
+    master: true
     branches: false
     pullRequests: false
     pullRequestsFromForks: false
