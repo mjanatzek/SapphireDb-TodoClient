@@ -1,21 +1,2 @@
 <h1>Add todo item</h1>
 
-<div class="row" [formGroup]="form">
-  <div class="cell-12 pb-2">
-    <m4-input prepend="Title" formControlName="title"></m4-input>
-  </div>
-  <div class="cell-12 pb-2">
-    <m4-textarea prepend="Description" formControlName="description"></m4-textarea>
-  </div>
-  <div class="cell-12 pb-2">
-    <m4-select prepend="Assigned to" formControlName="assignedToId" *ngIf="users$ | async as users">
-      <option [value]="user.id" *ngFor="let user of users">{{ user.username }}</option>
-    </m4-select>
-  </div>
-  <div class="cell-12 pb-2">
-    <m4-date-picker formControlName="dueDate"></m4-date-picker>
-  </div>
-  <div class="cell-12">
-    <button m4-button btn-style="success" [disabled]="form.invalid || form.pristine" (click)="save()">Create</button>
-  </div>
-</div>
