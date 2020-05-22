@@ -2,7 +2,6 @@ tasks:
   - init: npm install
     command: >
       npm install -g @angular/cli &&
-      ng analytics off &&
       npm start
 
 github:
