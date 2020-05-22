@@ -25,10 +25,10 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
       provide: SAPPHIRE_DB_OPTIONS,
       useValue: {
         connectionType: 'websocket',
-        // useSsl: true,
-        // serverBaseUrl: 'sapphiredb-todo.azurewebsites.net'
-        serverBaseUrl: 'localhost:5000',
-        useSsl: false
+        useSsl: true,
+        serverBaseUrl: 'sapphiredb-todo.azurewebsites.net'
+        // serverBaseUrl: 'localhost:5000',
+        // useSsl: false
       } as SapphireDbOptions
     }
   ],
