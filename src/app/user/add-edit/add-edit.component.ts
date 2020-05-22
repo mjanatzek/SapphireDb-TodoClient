@@ -46,6 +46,7 @@ export class AddEditComponent implements OnInit {
 
     let results$: Observable<OfflineResponse|CreateRangeResponse|UpdateRangeResponse>;
 
+    // Send data to server side
     if (formValue.id) {
       results$ = this.userCollection.update(formValue);
     } else {
@@ -54,6 +55,7 @@ export class AddEditComponent implements OnInit {
       });
     }
 
+    // Process response -> Show alert when validation errors occurred
     results$.subscribe(result => {
       const validationResults = result.results[0].validationResults;
       if (validationResults) {
