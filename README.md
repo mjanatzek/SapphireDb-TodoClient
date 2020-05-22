@@ -42,6 +42,8 @@ The challenge is to be first one assigning a task to another person/team.
 The component `todo/list` should contain a list of all todo items.
 
 You should get a list of all todo items from the server and display it.
+The todo collection is named `todoItems`.
+The user collection is named `users`.
 
 To make navigation easier it would be helpful to add a button or link to the page `/todo/add`.
 
