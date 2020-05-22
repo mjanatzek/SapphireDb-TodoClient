@@ -3,7 +3,7 @@ import {SapphireDbService} from 'ng-sapphiredb';
 import {ActivatedRoute, Router} from '@angular/router';
 import {Observable} from 'rxjs';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
-import {DefaultCollection} from 'sapphiredb';
+import {CreateRangeResponse, DefaultCollection, OfflineResponse, UpdateRangeResponse} from 'sapphiredb';
 import {User} from '../../shared/models/user';
 import {map, take} from 'rxjs/operators';
 
@@ -42,17 +42,31 @@ export class AddEditComponent implements OnInit {
   }
 
   save() {
-    const formValue: Partial<User> = this.form.value;
+    const formValue: User = this.form.value;
+
+    let results$: Observable<OfflineResponse|CreateRangeResponse|UpdateRangeResponse>;
 
     if (formValue.id) {
-      this.userCollection.update(formValue as User);
+      results$ = this.userCollection.update(formValue);
     } else {
-      this.userCollection.add({
+      results$ = this.userCollection.add({
         username: formValue.username
       });
     }
 
-    this.router.navigateByUrl('/user/select');
+    results$.subscribe(result => {
+      const validationResults = result.results[0].validationResults;
+      if (validationResults) {
+        const message = Object.keys(validationResults)
+          .map(key => [key, validationResults[key]])
+          .map(([key, vr]: [string, string[]]) => `${key}: ${vr.join(',')}`)
+          .join(',\n');
+
+        alert(message);
+      } else {
+        this.router.navigateByUrl('/user/select');
+      }
+    });
   }
 
   ngOnInit(): void {

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {SapphireDbService} from 'ng-sapphiredb';
 import {Observable} from 'rxjs';
 import {User} from '../../shared/models/user';

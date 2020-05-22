@@ -1,8 +1,8 @@
-import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import {BrowserModule} from '@angular/platform-browser';
+import {NgModule} from '@angular/core';
 
-import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './app.component';
+import {AppRoutingModule} from './app-routing.module';
+import {AppComponent} from './app.component';
 import {SAPPHIRE_DB_OPTIONS, SapphireDbModule} from 'ng-sapphiredb';
 import {SapphireDbOptions} from 'sapphiredb';
 import {NgMetro4Module} from 'ng-metro4';
@@ -32,6 +32,7 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
       } as SapphireDbOptions
     }
   ],
+  exports: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
