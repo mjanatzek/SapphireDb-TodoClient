@@ -1,43 +1,40 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
-import {BehaviorSubject, Observable, Subject, Subscription} from 'rxjs';
+import {Component, OnInit} from '@angular/core';
+import {combineLatest, Observable} from 'rxjs';
 import {TodoItem} from '../../shared/models/todo-item';
 import {SapphireDbService} from 'ng-sapphiredb';
-import {UserService} from '../../shared/user.service';
-import {DefaultCollection} from 'sapphiredb';
-import {debounceTime} from 'rxjs/operators';
+import {User} from '../../shared/models/user';
+import {map} from 'rxjs/operators';
+
+interface UserWithTodos {
+  user: User;
+  todoItems: TodoItem[];
+}
 
 @Component({
   selector: 'app-list',
   templateUrl: './list.component.html',
   styleUrls: ['./list.component.less']
 })
-export class ListComponent implements OnInit, OnDestroy {
-  todoCollection: DefaultCollection<TodoItem>;
+export class ListComponent implements OnInit {
+  users$: Observable<User[]>;
   todoItems$: Observable<TodoItem[]>;
 
-  changeProgressSubject$ = new Subject<[TodoItem, number]>();
+  usersWithTodos$: Observable<UserWithTodos[]>;
 
-  private changeProgressSubscription?: Subscription;
+  constructor(private db: SapphireDbService) {
+    this.users$ = this.db.collection<User>('users').values();
+    this.todoItems$ = this.db.collection<TodoItem>('todoItems').values();
 
-  constructor(private db: SapphireDbService, public userService: UserService) {
-    this.todoCollection = this.db.collection<TodoItem>('todoItems');
-    this.todoItems$ = this.todoCollection.values();
-
-    this.changeProgressSubject$.pipe(
-      debounceTime(200)
-    ).subscribe(([changedTodo, newProgress]) => {
-      this.todoCollection.update({
-        ...changedTodo,
-        progress: newProgress
-      });
-    });
+    this.usersWithTodos$ = combineLatest([this.users$, this.todoItems$]).pipe(
+      map(([users, todoItems]: [User[], TodoItem[]]) => {
+        return users.map(user => ({
+          user,
+          todoItems: todoItems.filter(t => t.assignedToId === user.id)
+        } as UserWithTodos));
+      })
+    );
   }
 
   ngOnInit(): void {
   }
-
-  ngOnDestroy(): void {
-    this.changeProgressSubscription?.unsubscribe();
-  }
-
 }
